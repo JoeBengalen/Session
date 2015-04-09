@@ -3,16 +3,23 @@ Lightweight session manager library.
 
 Uses PHP's `$_SESSION` global with a namespace so no interference should happen with other libraries.
 
-~~Lazy initializes the session.~~ Not necessary when registering session as a service provider with DI.
-
-Session object should has some set,get,had,remove methods and implement array access.
+Session object should have `set`, `get`, `has`, `remove` and `clear` methods and implement `\ArrayAccess`. This is done by extending the `JoeBengalen\Config\AbstractConfig` class. Doing so we also get support for arrays with dot notation.
 
 ```php
 <?php
 
-$session1 = new \JoeBengalen\Session\Session('namespace1');
-$session2 = new \JoeBengalen\Session\Session('namespace2');
+$session = new \JoeBengalen\Session\Session('unique_namespace');
+
+$session['key1.key2'] = 'value1';
+$session['key1.key3'] = 'value2';
+
+var_dump($session->get('key1'));
+// -> returns ['key2' => 'value1', 'key3' => 'value2']
+
+var_dump($session->get());
+// -> returns all session data
+
+var_dump($session->get() === $_SESSION[$session->getNamespace()]);
+// -> returns true
 
 ```
-
-Idea: Should arrays.as.dot.notation be possible? If so, look how to combine this with JoeBengalen\Config repo.
