@@ -20,7 +20,7 @@ class Session extends AbstractConfig implements SessionInterface
     /**
      * @var array Reference to the $_SESSION data within the namespace. 
      */
-    protected $data;
+    protected $data = [];
     
     /**
      * Create a new session namespace.
@@ -91,6 +91,14 @@ class Session extends AbstractConfig implements SessionInterface
      */
     public function referenceNamespace()
     {
+        // If some data was already set before referencing, merge the data
+        if (!empty($this->data)) {
+            // array_replace_recursive recusively merges both arrays. Where array_merge_recursive 
+            // makes an array makes an numeric array if different values are given to a string key, 
+            // does array_replace_recursive replace the value of an string key.
+            $_SESSION[$this->namespace] = array_replace_recursive($_SESSION[$this->namespace], $this->data);
+        }
+        
         $this->data = &$_SESSION[$this->namespace];
         
         return $this;
