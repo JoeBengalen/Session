@@ -1,0 +1,31 @@
+{
+    "name": "joebengalen/session",
+    "type": "library",
+    "description": "Lightweight session manager library.",
+    "keywords": ["session"],
+    "homepage": "https://github.com/JoeBengalen/Session",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martijn Wennink",
+            "email": "joebengalen@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/JoeBengalen/Session/issues",
+        "source": "https://github.com/JoeBengalen/Session"
+    },
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "JoeBengalen\\Session\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JoeBengalen\\Session\\Test\\": "tests"
+        }
+    }
+}
